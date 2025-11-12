@@ -1,37 +1,28 @@
-# Intro to Object Oriented Programming
-## Module 1 - Assignment #1
+# Introduction to Object Oriented Programming
+## Module 1 – Assignment #1
 ### XYZ Bank ATM Program
 
-Group Members:
-- Dain Thorpe  
-- Shanique Wisdom  
-- Joan Johnson-Brown  
+**Group Members:**
+- Dain Thorpe
+- Shanique Wisdom
+- Joan Johnson-Brown
+- Dante Graham
 
-Lecturer: Doron Williams  
-**Date Submitted:** November 5 2025
+**Lecturer:** Doron Williams  
+**Date:** November 2025
 
 ### Description
-This program is a simple console application written in C++.  
-It simulates an ATM system for XYZ Bank where users can:
-1. Check account balance  
-2. Deposit money  
-3. Withdraw money  
-4. Exit the program  
+Console ATM program in C++ using a class (`Account`) with encapsulation, constructor validation, and menu navigation.
 
 ### Features
-- Uses a `while` loop and `switch` statement for menu navigation  
-- Includes an `Account` class with a private `balance` variable  
-- Validates initial balance (must be ≥ 1000 JMD)  
-- Handles invalid inputs gracefully  
-- Displays confirmation or error messages after each action  
+- `Account` class with private `balance`
+- Constructor validates initial balance (>= 1000 else sets to 0 and warns)
+- `Deposit(amount)`, `Withdraw(amount)`, `GetBalance()`
+- `do...while` loop + `switch` menu (Check, Deposit, Withdraw, Exit)
+- Clear messages and simple validation
 
 ### How to Run
-1. Open **MSYS2 UCRT64** terminal  
-2. Navigate to the project directory  
-   ```bash
-   cd /c/Users/Anonymous/Documents/IntroOOP_Assignment1_Group_Dain_Shanique_Joan
-
-
-### Notes
-We tested all options (check balance, deposit, withdraw, exit) to make sure it works properly.  
-Each function gave the right output based on user input.
+```bash
+cd /c/Users/Anonymous/Documents/IntroOOP_Assignment1_Group_Dain_Shanique_Joan
+g++ -std=c++20 -Wall main.cpp -o atm.exe
+./atm.exe

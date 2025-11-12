@@ -2,127 +2,124 @@
 using namespace std;
 
 /*
-    Intro to Object Oriented Programming
-    Module 1 - Assignment #1
+    ============================================
+      Introduction to Object Oriented Programming
+           Module 1 - Assignment #1
+           XYZ Bank ATM Program
+    --------------------------------------------
     Group Members:
     - Dain Thorpe
     - Shanique Wisdom
     - Joan Johnson-Brown
-
-    Program:
-    Simple ATM style console program for XYZ Bank.
-    The user can:
-      1. Check Balance
-      2. Deposit
-      3. Withdraw
-      4. Exit
-
-    The Account class stores the balance and handles
-    deposits / withdrawals using functions.
+    - Dante Graham
+    Date: November 2025
+    ============================================
 */
 
+// =====================================
+// Account Class Definition
+// =====================================
 class Account {
 private:
-    double balance; // current account balance
+    // --- Private attribute (encapsulation)
+    double balance; // stores customer's account balance
 
 public:
-    // Constructor: set the starting balance.
-    // If the starting balance is at least 1000,
-    // we accept it. Otherwise, we set the balance to 0
-    // and warn the user.
-    Account(double initialBalance) {
-        if (initialBalance >= 1000.0) {
-            balance = initialBalance;
+    // --- Constructor: validate and set initial balance
+    Account(double init_balance) {
+        if (init_balance >= 1000) {
+            balance = init_balance;
         } else {
-            balance = 0.0;
-            cout << "Invalid initial balance. Account set to $0." << endl;
+            balance = 0;
+            cout << "Invalid initial balance. Account set to $0.\n";
         }
     }
 
-    // Add money to the account
+    // --- Deposit function: add funds to the balance
     void Deposit(double amount) {
         if (amount > 0) {
             balance += amount;
-            cout << "Deposit successful." << endl;
+            cout << "Deposit successful.\n";
         } else {
-            cout << "Invalid deposit amount." << endl;
+            cout << "Invalid deposit amount.\n";
         }
     }
 
-    // Take money out of the account (if enough is there).
-    // If not enough, show the required message:
-    // "Debit amount exceeded account balance."
-    void Withdraw(double amount) {
+    // --- Withdraw function: ensure sufficient funds before debiting
+    bool Withdraw(double amount) {
         if (amount <= 0) {
-            cout << "Invalid withdrawal amount." << endl;
-        } else if (amount > balance) {
-            cout << "Debit amount exceeded account balance." << endl;
-        } else {
-            balance -= amount;
-            cout << "Withdrawal successful." << endl;
+            cout << "Invalid withdrawal amount.\n";
+            return false;
         }
+        if (amount > balance) {
+            cout << "Debit amount exceeded account balance.\n";
+            return false;
+        }
+        balance -= amount;
+        cout << "Withdrawal successful.\n";
+        return true;
     }
 
-    // Return the current balance
-    double GetBalance() {
+    // --- GetBalance function: return the current balance
+    double GetBalance() const {
         return balance;
     }
 };
 
+// =====================================
+// Main Program - ATM Menu
+// =====================================
 int main() {
-    // ask user for starting money
-    double start;
+    double initial;
     cout << "Enter your initial balance: ";
-    cin >> start;
+    cin >> initial;
 
-    // make the user's bank account
-    Account userAccount(start);
+    // Create Account object
+    Account acc(initial);
 
-    int choice = 0;
-    bool running = true;
-
-    // loop until the user chooses Exit
-    while (running) {
-        cout << "\n======================================" << endl;
-        cout << "            XYZ BANK ATM              " << endl;
-        cout << "======================================" << endl;
-        cout << "1. Check Balance" << endl;
-        cout << "2. Deposit" << endl;
-        cout << "3. Withdraw" << endl;
-        cout << "4. Exit" << endl;
-        cout << "--------------------------------------" << endl;
+    int option;
+    do {
+        // --- Display ATM Menu
+        cout << "\n===== XYZ BANK ATM =====\n";
+        cout << "1. Check Balance\n";
+        cout << "2. Deposit\n";
+        cout << "3. Withdraw\n";
+        cout << "4. Exit\n";
+        cout << "=========================\n";
         cout << "Choose an option: ";
-        cin >> choice;
+        cin >> option;
 
-        if (choice == 1) {
-            // Show balance
-            cout << "\nYour Current Balance: $"
-                 << userAccount.GetBalance() << endl;
+        // --- Process user selection
+        switch (option) {
+            case 1:
+                cout << "Your current balance is: $" << acc.GetBalance() << endl;
+                break;
+
+            case 2: {
+                double amount;
+                cout << "Enter amount to deposit: ";
+                cin >> amount;
+                acc.Deposit(amount);
+                break;
+            }
+
+            case 3: {
+                double amount;
+                cout << "Enter amount to withdraw: ";
+                cin >> amount;
+                acc.Withdraw(amount);
+                break;
+            }
+
+            case 4:
+                cout << "Thank you for using XYZ Bank ATM.\n";
+                break;
+
+            default:
+                cout << "Invalid option. Please try again.\n";
         }
-        else if (choice == 2) {
-            // Deposit flow
-            double amount;
-            cout << "\nEnter amount to deposit: ";
-            cin >> amount;
-            userAccount.Deposit(amount);
-        }
-        else if (choice == 3) {
-            // Withdraw flow
-            double amount;
-            cout << "\nEnter amount to withdraw: ";
-            cin >> amount;
-            userAccount.Withdraw(amount);
-        }
-        else if (choice == 4) {
-            // Exit program
-            cout << "\nThank you for using XYZ Bank ATM." << endl;
-            running = false;
-        }
-        else {
-            // Anything that isn't 1-4
-            cout << "\nInvalid option. Please try again." << endl;
-        }
-    }
+
+    } while (option != 4); // keep menu running until user chooses Exit
 
     return 0;
 }
