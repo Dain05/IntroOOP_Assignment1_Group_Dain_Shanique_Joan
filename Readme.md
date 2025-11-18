@@ -7,6 +7,7 @@
 - Shanique Wisdom
 - Joan Johnson-Brown
 - Dante Graham
+- Pasha Pinnock
 
 **Lecturer:** Doron Williams  
 **Date:** November 2025
@@ -26,3 +27,4 @@ Console ATM program in C++ using a class (`Account`) with encapsulation, constru
 cd /c/Users/Anonymous/Documents/IntroOOP_Assignment1_Group_Dain_Shanique_Joan
 g++ -std=c++20 -Wall main.cpp -o atm.exe
 ./atm.exe
+
